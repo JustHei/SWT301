@@ -27,11 +27,12 @@
 
                             <form action="login" method="get" class="register-form" id="login-form">
 
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <label for="username">
+                                        Username
                                         <i class="zmdi zmdi-account material-icons-name"></i>
-                                    </label> 
-                                    <input required type="text" name="username" id="username" placeholder="Username" >
+                                    </label>
+                                    <input required type="text" name="username" id="username" placeholder="Username">
                                 </div>
 
                                 <div class="form-group">
