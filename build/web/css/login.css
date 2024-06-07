@@ -547,9 +547,11 @@ label.valid {
   .signup-form {
     margin-left: 0px;
     margin-right: 0px;
-    padding-left: 0px;
-    /* box-sizing: border-box; */
-    padding: 0 30px; }
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 
   .signin-image {
     margin-left: 0px;
