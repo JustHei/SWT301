@@ -5,13 +5,19 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import model.Orders;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class OrdersDAO extends MyDAO {
 
+   public class MainClass {
+    private static final Logger logger = Logger.getLogger(MainClass.class.getName());
+
     public static void main(String[] args) {
         OrdersDAO od = new OrdersDAO();
-        System.out.println(od.getAllOrders());
+        logger.log(Level.INFO, od.getAllOrders().toString());
     }
+}
 
     // lay ra nhung don hang cua 1 khach hang
     public List<Orders> getOrderByUserID(int userID) {
