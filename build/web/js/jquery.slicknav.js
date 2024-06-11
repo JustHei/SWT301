@@ -62,12 +62,12 @@
     }
 
     Plugin.prototype.init = function () {
-        var $this = this,
+        let $this = this,
             menu = $(this.element),
             settings = this.settings,
             iconClass,
             menuBar;
-
+    };
         // clone menu if needed
         if (settings.duplicate) {
             $this.mobileNav = menu.clone();
