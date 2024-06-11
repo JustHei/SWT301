@@ -202,17 +202,18 @@
     /*-------------------
 		Quantity change
 	--------------------- */
+   $(document).ready(function() {
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="dec qtybtn">-</span>');
     proQty.append('<span class="inc qtybtn">+</span>');
     proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
-	var newVal;
+        var newVal;
         if ($button.hasClass('inc')) {
-        	newVal = parseFloat(oldValue) + 1;
+            newVal = parseFloat(oldValue) + 1;
         } else {
-            // Don't allow decrementing below zero
+            // Không cho phép giảm dưới 0
             if (oldValue > 0) {
                 newVal = parseFloat(oldValue) - 1;
             } else {
@@ -221,5 +222,4 @@
         }
         $button.parent().find('input').val(newVal);
     });
-
-})(jQuery);
+});
