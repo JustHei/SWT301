@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,14 +7,22 @@ import java.util.List;
 import model.Orders;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
 public class OrdersDAO extends MyDAO {
-   public class MainClass {
+
+//    public static void main(String[] args) {
+//        OrdersDAO od = new OrdersDAO();
+//        System.out.println(od.getAllOrders());
+//    }
+public class MainClass {
     private static final Logger logger = Logger.getLogger(MainClass.class.getName());
+
     public static void main(String[] args) {
         OrdersDAO od = new OrdersDAO();
         logger.log(Level.INFO, od.getAllOrders().toString());
     }
 }
+    
     // lay ra nhung don hang cua 1 khach hang
     public List<Orders> getOrderByUserID(int userID) {
         List<Orders> orderList = new ArrayList<>();
@@ -45,10 +54,13 @@ public class OrdersDAO extends MyDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return orderList;
     }
+
     public Orders getOrderByOdId(int odid) {
         Orders order = null;
+
         try {
             String sql = "SELECT o.*, u.username, os.status_name FROM Orders o\n"
                     + "join Users u on o.UserID = u.ID\n"
@@ -57,6 +69,7 @@ public class OrdersDAO extends MyDAO {
             ps = con.prepareStatement(sql);
             ps.setInt(1, odid);
             rs = ps.executeQuery();
+
             if (rs.next()) {
                 int id = rs.getInt("ID");
                 int userID = rs.getInt("UserID");
@@ -68,19 +81,23 @@ public class OrdersDAO extends MyDAO {
                 int statusID = rs.getInt("StatusID");
                 String username = rs.getString("username");
                 String statusName = rs.getString("status_name");
+
                 order = new Orders(id, userID, name, phoneNumber, address, orderDate, totalAmount, statusID, username, statusName);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return order;
     }
+
     // lay ra tat ca nhung don hang
     public List<Orders> getAllOrders() {
         List<Orders> orderList = new ArrayList<>();
         xSql = "SELECT o.*, u.username, os.status_name FROM Orders o\n"
                 + "join Users u on o.UserID = u.ID\n"
                 + "join OrderStatus os on o.StatusID = os.orderstatus_id ";
+
         try {
             int userID, id, totalAmount, StatusID;
             String username, statusName, name, phoneNumber, address;
@@ -105,8 +122,10 @@ public class OrdersDAO extends MyDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return orderList;
     }
+
     // tao 1 don hàng
     public void createOrder(Orders order) {
         try {
@@ -125,6 +144,7 @@ public class OrdersDAO extends MyDAO {
             e.printStackTrace();
         }
     }
+
     public void nextStatus(int orderId) {
         try {
             // Tìm `StatusID` hiện tại của đơn hàng
@@ -132,6 +152,7 @@ public class OrdersDAO extends MyDAO {
             ps = con.prepareStatement(getStatusSql);
             ps.setInt(1, orderId);
             rs = ps.executeQuery();
+
             int currentStatus = 0;
             if (rs.next()) {
                 currentStatus = rs.getInt("StatusID");
@@ -140,9 +161,11 @@ public class OrdersDAO extends MyDAO {
                 // Xử lý lỗi hoặc thông báo
                 return;
             }
+
             if (currentStatus < 3) {
                 // Chỉ tăng `StatusID` nếu nó nhỏ hơn 3
                 int newStatus = currentStatus + 1;
+
                 // Cập nhật `StatusID`
                 String updateStatusSql = "UPDATE Orders SET StatusID = ? WHERE ID = ?";
                 ps = con.prepareStatement(updateStatusSql);
@@ -157,4 +180,5 @@ public class OrdersDAO extends MyDAO {
             e.printStackTrace();
         }
     }
+
 }
